@@ -1,0 +1,76 @@
+.event-form input[type="text"],
+.event-form input[type="email"],
+.event-form input[type="url"],
+.event-form input[type="password"],
+.event-form input[type="search"],
+.event-form input[type="number"],
+.event-form input[type="tel"],
+.event-form input[type="range"],
+.event-form input[type="date"],
+.event-form input[type="month"],
+.event-form input[type="week"],
+.event-form input[type="time"],
+.event-form input[type="datetime"],
+.event-form input[type="datetime-local"],
+.event-form input[type="color"],
+.event-form textarea {
+	width: 100%;
+}
+
+.event-form {
+	display: flex;
+	flex-direction: column;
+}
+
+.event-form p {
+	display: flex;
+	flex-direction: column;
+}
+
+.event-form .required {
+	color: tomato;
+}
+
+.event-form .optional {
+	visibility: hidden;
+}
+
+.event-form .description {
+	font-size: 14px;
+	font-style: italic;
+	color: #4e4e4e;
+	line-height: 1;
+}
+
+.event-form .error {
+	font-size: 12px;
+	color: red;
+	font-style: italic;
+}
+
+.alert {
+	display: inline-block;
+	padding: 1em 1em;
+	font-size: 0.875em;
+	text-align: center;
+	color: white;
+	position: fixed;
+	bottom: 20px;
+	z-index: 1000;
+	/*left: -280px;*/
+	width: 280px;
+	-webkit-animation: slide 0.5s forwards; 
+	-webkit-animation-delay: 2s;
+	animation: slide 0.5s forwards;
+	animation-delay: 1s;
+	box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
+	box-sizing: border-box;
+}
+
+.alert-success {
+	background-color: #4CAF50;
+}
+
+.alert-danger {
+	background-color: #F44336;
+}
