@@ -20,6 +20,8 @@ class AFCP_Core {
     public function includes(){
         require_once AFCP_DIR . 'includes/class-afcp-shortcode.php';
         new AFCP_Shortcode();
+		require_once AFCP_DIR . 'includes/class-afcp-ajax.php';
+        new AFCP_Shortcode();
     }
 
     public function enqueue(){
@@ -30,7 +32,7 @@ class AFCP_Core {
             filemtime(AFCP_DIR . 'assets/fp-styles.css')
         );
 
-        wp_enqueue_style( 'afcp-styles' );
+        
 
         wp_register_script(
             'afcp-script', 
@@ -39,7 +41,30 @@ class AFCP_Core {
             filemtime(AFCP_DIR . 'assets/fp-script.js')
         );
 
-        wp_enqueue_script( 'afcp-script' );
+		wp_register_script(
+            'afcp-script', 
+            AFCP_URI . 'assets/fp-script.js',
+            ['jquery'],
+            filemtime(AFCP_DIR . 'assets/fp-script.js'),
+			true
+        );
+
+		wp_register_script(
+            'afcp-script-ajax', 
+            AFCP_URI . 'assets/afcp-ajax.js',
+            ['jquery'],
+            filemtime(AFCP_DIR . 'assets/afcp-ajax.js'),
+			true
+        );
+		
+		wp_localize_script(
+			'afcp-script-ajax',
+			'afcp_ajax',
+			[
+				'url'   => admin_url( 'admin-ajax.php' ),
+				'nonce' => wp_create_nonce( 'afcp-ajax-nonce' ),
+			]
+		);
 
 		wp_register_style(
 			'afcp-select2-style',
@@ -55,6 +80,7 @@ class AFCP_Core {
 			null,
 			true
 		);
+
     }
 
     public function register_cpt_event() {
