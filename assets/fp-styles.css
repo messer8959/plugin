@@ -17,6 +17,10 @@
 	width: 100%;
 }
 
+/* #event_descriptions {
+	display: block!important;
+} */
+
 .event-form {
 	display: flex;
 	flex-direction: column;

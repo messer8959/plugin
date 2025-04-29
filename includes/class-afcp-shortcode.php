@@ -10,10 +10,10 @@ class AFCP_Shortcode
     public function shortcode_form()
     {
 
-        wp_enqueue_style( 'afcp-styles' );
-        wp_enqueue_script( 'afcp-script' );
-        wp_enqueue_style( 'afcp-select2-style' );
-        wp_enqueue_script( 'afcp-select2-script' );
+        wp_enqueue_style('afcp-styles');
+        wp_enqueue_script('afcp-script');
+        wp_enqueue_style('afcp-select2-style');
+        wp_enqueue_script('afcp-select2-script');
 
 
         ob_start();
@@ -27,7 +27,7 @@ class AFCP_Shortcode
             ?>
 
             <button type="submit"
-                class="button submit-event"
+                class="button-special submit-event"
                 name="send_event">
                 Add Event
             </button>
@@ -320,6 +320,15 @@ class AFCP_Shortcode
                     <?php echo $editor; ?>
 
                 </div>
+                <script>
+                    jQuery(document).ready(function($) {
+                        $(document).on('tinymce-editor-setup', function(e, ed) {
+                            ed.on('NodeChange', function(e) {
+                                $('#' + field_editor.key).html(wp.editor.getContent(field_editor.key));
+                            });
+                        });
+                    });
+                </script>
 
 <?php
                 break;

@@ -39,9 +39,4 @@ jQuery( document ).ready( function( $ ) {
 	$( 'input.datepicker' ).datepicker( { dateFormat: 'dd.mm.yy' } );
 	// можно подключить datepicker с доп. настройками так:
 
-	$( document ).on( 'tinymce-editor-setup', function( e, ed ) {
-		ed.on( 'NodeChange', function( e ) {
-			$( '#' + field_editor.key ).html( wp.editor.getContent( field_editor.key ) );
-		} );
-	} );
 } );
