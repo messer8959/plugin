@@ -40,6 +40,21 @@ class AFCP_Core {
         );
 
         wp_enqueue_script( 'afcp-script' );
+
+		wp_register_style(
+			'afcp-select2-style',
+			'https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css',
+			[],
+			null
+		);
+
+		wp_register_script(
+			'afcp-select2-script',
+			'https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js',
+			[ 'jquery', 'afcp-script' ],
+			null,
+			true
+		);
     }
 
     public function register_cpt_event() {

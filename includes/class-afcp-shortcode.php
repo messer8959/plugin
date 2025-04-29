@@ -9,12 +9,19 @@ class AFCP_Shortcode
 
     public function shortcode_form()
     {
+
+        wp_enqueue_style( 'afcp-styles' );
+        wp_enqueue_script( 'afcp-script' );
+        wp_enqueue_style( 'afcp-select2-style' );
+        wp_enqueue_script( 'afcp-select2-script' );
+
+
         ob_start();
 ?>
         <form action="POST" id="event-form" class="event-form">
 
-            <?php 
-            foreach($this->fields() as $key => $value ):
+            <?php
+            foreach ($this->fields() as $key => $value):
                 $this->fields_form($key, $value);
             endforeach;
             ?>
@@ -42,7 +49,7 @@ class AFCP_Shortcode
                 'type'        => 'multiselect',
                 'label'       => 'Категория мероприятия',
                 'input_class' => ['js-multiselect'],
-                // 'options'     => $this->get_field_terms(),
+                'options'     => $this->get_field_terms(),
                 'required'    => true,
                 'description' => 'Выберите нужную категорию',
             ],
@@ -344,5 +351,24 @@ class AFCP_Shortcode
         }
 
         return $field;
+    }
+
+    public function get_field_terms()
+    {
+        $terms = get_terms(
+            [
+                'taxonomy'      => ['topics'],
+                'orderby'      =>  'id',
+                'order'      =>  'ASC',
+                'hide_empty'      => false,
+            ]
+        );
+
+        $field_terms = [];
+        foreach ($terms as $term) {
+            $field_terms[$term->term_id] = $term->name;
+        }
+
+        return $field_terms;
     }
 }
