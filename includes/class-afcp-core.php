@@ -21,7 +21,7 @@ class AFCP_Core {
         require_once AFCP_DIR . 'includes/class-afcp-shortcode.php';
         new AFCP_Shortcode();
 		require_once AFCP_DIR . 'includes/class-afcp-ajax.php';
-        new AFCP_Shortcode();
+        new AFCP_Ajax();
     }
 
     public function enqueue(){
