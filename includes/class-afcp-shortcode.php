@@ -28,7 +28,7 @@ class AFCP_Shortcode
             endforeach;
             ?>
 
-            <button type="submit"
+            <button type="submit"   
                 class="button-special submit-event"
                 name="send_event">
                 Add Event
@@ -377,7 +377,7 @@ class AFCP_Shortcode
 
         $field_terms = [];
         foreach ($terms as $term) {
-            $field_terms[$term->term_id] = $term->name;
+            $field_terms[$term->slug] = $term->name;
         }
 
         return $field_terms;

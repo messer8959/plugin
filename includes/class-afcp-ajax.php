@@ -20,7 +20,7 @@ class AFCP_Ajax
 
         $event_data = [
             'post_type' => 'event',
-            'post_status' => 'draft',
+            'post_status' => 'publish',
             'post_title' => sanitize_text_field($_POST['event_title']),
             'post_content' => wp_kses_post($_POST['event_descriptions']),
             'meta_input' => [
@@ -28,13 +28,24 @@ class AFCP_Ajax
                 'event_location' => sanitize_text_field($_POST['event_location']),
             ],
             'tax_input' => [
-                'topics' => sanitize_text_field($_POST['event_topics'])
+                'topics' => $_POST['event_topics'],
+                'hashtags' => explode(',', sanitize_text_field($_POST['event_hashtags']))
             ]
         ];
 
-        wp_insert_post($event_data);
+        error_log(print_r($event_data, 1));
+        $post_id = wp_insert_post($event_data);
+
+        $this->set_term($post_id, $event_data['tax_input']);
 
         wp_die();
+    }
+
+    public function set_term($post_id, $data){
+        foreach($data as $key => $value ){
+            wp_set_object_terms( $post_id,$value,$key );
+        }
+        
     }
 
     public function validation()
