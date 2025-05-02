@@ -37,15 +37,47 @@ class AFCP_Ajax
         $post_id = wp_insert_post($event_data);
 
         $this->set_term($post_id, $event_data['tax_input']);
+        $this->upload_thumbnail($post_id);
 
         wp_die();
     }
 
-    public function set_term($post_id, $data){
-        foreach($data as $key => $value ){
-            wp_set_object_terms( $post_id,$value,$key );
+    public function upload_thumbnail($post_id){
+
+        // все ок! Продолжаем.
+        // Эти файлы должны быть подключены в лицевой части (фронт-энде).
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        require_once(ABSPATH . 'wp-admin/includes/media.php');
+
+        //Format Validation 
+
+        add_filter('upload_mimes', function(){
+            return [
+                'jpg|jpeg|jpe' => 'image/jpeg',
+                'png'          => 'image/png'
+            ];
+        });
+
+        // Позволим WordPress перехватить загрузку.
+        // не забываем указать атрибут name поля input - 'my_image_upload'
+        $attachment_id = media_handle_upload('event_thumbnail', $post_id);
+
+        if (is_wp_error($attachment_id)) {
+            $response_message = 'Error `' . $_FILES['event_thumbnail']['name'] . '`: ' . $attachment_id->get_error_message();
+            $this->error($response_message);
         }
-        
+
+        set_post_thumbnail($post_id, $attachment_id);
+
+        // return $attachment_id;
+    }
+
+    public function set_term($post_id, $data)
+    {
+        foreach ($data as $key => $value) {
+            wp_set_object_terms($post_id, $value, $key);
+        }
     }
 
     public function validation()
