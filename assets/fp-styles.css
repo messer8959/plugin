@@ -78,3 +78,15 @@
 .alert-danger {
 	background-color: #F44336;
 }
+
+.error {
+	font-size: 14px;
+	color: red;
+}
+
+.alert-success {
+	background-color: #4CAF50;
+}
+.alert-danger {
+	background-color: #F44336;
+}

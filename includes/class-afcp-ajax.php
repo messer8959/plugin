@@ -39,6 +39,8 @@ class AFCP_Ajax
         $this->set_term($post_id, $event_data['tax_input']);
         $this->upload_thumbnail($post_id);
 
+        $this->success('Event ' . $post_id . ' created successfully.');
+
         wp_die();
     }
 
@@ -85,13 +87,13 @@ class AFCP_Ajax
         $error = [];
 
         $required = [
-            // 'event_title'        => 'This is required field',
-            // 'event_topics'       => 'This is required field',
+            'event_title'        => 'This is required field',
+            'event_topics'       => 'This is required field',
             // 'event_hashtags'     => 'This is required field',
             // 'event_descriptions' => 'This is required field',
             // 'event_thumbnail'    => 'This is required field',
-            // 'event_date'         => 'This is required field',
-            // 'event_location'     => 'This is required field'
+            'event_date'         => 'This is required field',
+            'event_location'     => 'This is required field'
         ];
 
         foreach ($required as $key => $item) {
