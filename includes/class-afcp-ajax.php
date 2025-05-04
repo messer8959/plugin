@@ -46,6 +46,10 @@ class AFCP_Ajax
 
     public function upload_thumbnail($post_id){
 
+        if(empty( $_FILES )){
+            return;
+        }
+
         // все ок! Продолжаем.
         // Эти файлы должны быть подключены в лицевой части (фронт-энде).
         require_once(ABSPATH . 'wp-admin/includes/image.php');
